@@ -1,0 +1,5 @@
+2021-07-13 08:49:39.256  INFO 21048 --- [restartedMain] com.xhk.blog.BlogApplication             : Starting BlogApplication on DESKTOP-9FDOGTM with PID 21048 (E:\BlogAdmin\target\classes started by 肖洪康 in E:\BlogAdmin)
+2021-07-13 08:49:39.258  INFO 21048 --- [restartedMain] com.xhk.blog.BlogApplication             : The following profiles are active: pro
+2021-07-13 08:49:40.767  WARN 21048 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-07-13 08:49:40.916  WARN 21048 --- [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2021-07-13 08:49:41.012  INFO 21048 --- [restartedMain] com.xhk.blog.BlogApplication             : Started BlogApplication in 2.102 seconds (JVM running for 3.219)

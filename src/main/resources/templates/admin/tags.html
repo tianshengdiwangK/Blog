@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/_fragments :: head(~{::title})">
+  <title>shell845 | tag</title>
+</head>
+
+<body class="m-sticky-site">
+<!-- Nav bar-->
+<nav th:replace="admin/_fragments :: menu(3)"></nav>
+<!-- Sub bar-->
+<div th:fragment="subbar" class="ui attached inverted pointing menu m-opacity-small">
+  <div class="ui container">
+    <div class="right menu">
+      <a href="#" th:href="@{/admin/tags/input}" class="item">新增</a>
+      <a href="#" th:href="@{/admin/tags}" class="active olive item">列表</a>
+    </div>
+  </div>
+</div>
+
+<!-- Content -->
+<div class="m-container-small m-padded-tb-mid">
+  <div class="ui container">
+    <!--notification-->
+    <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+      <i class="close icon"></i>
+      <div class="header">Notification:</div>
+      <p th:text="${message}">操作成功</p>
+    </div>
+    <!--table-->
+    <table class="ui table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Category</th>
+        <th class="right aligned">Operation</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="tag,iterStat : ${page.content}">
+        <td th:text="${tag.id}">1</td>
+        <td th:text="${tag.tagName}">abcd</td>
+        <td class="right aligned">
+          <a href="#" th:href="@{/admin/tags/{id}/input(id=${tag.id})}" class="ui mini olive button"> Edit </a>
+          <a href="#" th:href="@{/admin/tags/{id}/delete(id=${tag.id})}" class="ui mini orange button">Delete</a>
+        </td>
+      </tr>
+      </tbody>
+      <tfoot>
+      <tr>
+        <th colspan="6">
+          <div class="ui pagination menu" th:if="${page.totalPages} > 1">
+            <a th:href="@{/admin/blogs/(page=${page.number}-1)}" class="icon item" th:unless="${page.first}">
+              <i class="left chevron icon"></i>
+            </a>
+            <a th:href="@{/admin/blogs/(page=${page.number}+1)}" class="icon item" th:unless="${page.last}">
+              <i class="right chevron icon"></i>
+            </a>
+          </div>
+          <a href="#" th:href="@{/admin/tags/input}" class="ui right floated basic olive button">Add</a>
+        </th>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+
+<!-- Footer -->
+<main class="m-sticky-site-content"></main>
+<footer th:replace="admin/_fragments :: footer"></footer>
+<!-- JavaScript -->
+<th:block th:replace="_fragments :: script"></th:block>
+<script>
+  //close notification
+  $('.message .close')
+          .on('click', function () {
+            $(this)
+                    .closest('.message')
+                    .transition('fade');
+          });
+</script>
+</body>
+</html>

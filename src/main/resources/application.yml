@@ -1,0 +1,9 @@
+# 应用名称
+spring:
+  thymeleaf:
+    mode: HTML
+  profiles:
+    active: dev
+
+
+comment.avatar: /images/avatar.png
