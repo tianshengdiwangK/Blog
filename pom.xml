@@ -107,7 +107,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.3.7.RELEASE</version>
                 <configuration>
-                    <mainClass>com.xhk.blog.BlogApplication</mainClass>
+                    <mainClass>com.xhk.BlogApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
@@ -118,6 +118,10 @@
                     </execution>
                 </executions>
             </plugin>
+
+
+
+
         </plugins>
     </build>
 

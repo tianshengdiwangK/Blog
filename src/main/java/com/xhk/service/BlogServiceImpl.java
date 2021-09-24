@@ -3,6 +3,7 @@ package com.xhk.service;
 import com.xhk.NotFoundException;
 import com.xhk.dao.BlogRepository;
 import com.xhk.pojo.Blog;
+import com.xhk.pojo.Tag;
 import com.xhk.pojo.Type;
 import com.xhk.util.MarkdownUtils;
 import com.xhk.util.MyBeanUtils;
@@ -17,13 +18,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import javax.persistence.criteria.*;
+import java.util.*;
 
 @Service
 public class BlogServiceImpl implements BlogService{
@@ -80,6 +76,17 @@ public class BlogServiceImpl implements BlogService{
         return blogRepository.findByQuery(query,pageable);
     }
 
+    @Override
+    public Page<Blog> listBlog(Long tagId, Pageable pageable) {
+        return blogRepository.findAll(new Specification<Blog>() {
+            @Override
+            public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+                Join join =root.join("tags");
+                return cb.equal(join.get("id"),tagId);
+            }
+        },pageable);
+    }
+
     @Transactional
     @Override
     public Blog saveBlog(Blog blog) {
@@ -120,5 +127,20 @@ public class BlogServiceImpl implements BlogService{
     public List<Blog> listRecommendBlogTop(Integer size) {
         Pageable pageable= PageRequest.of(0,size, Sort.by(Sort.Direction.DESC,"updatedTime"));
         return blogRepository.findTop(pageable);
+    }
+
+    @Override
+    public Map<String, List<Blog>> archiveBlog() {
+        List<String> years=blogRepository.findGroupYears();
+        Map<String,List<Blog>> map=new LinkedHashMap<>();
+        for(String year:years){
+            map.put(year,blogRepository.findByYear(year));
+        }
+        return map;
+    }
+
+    @Override
+    public Long countBlog() {
+        return blogRepository.count();
     }
 }
