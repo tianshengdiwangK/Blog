@@ -39,7 +39,7 @@ public class TagController {
     // get existing tags
     @Transactional
     @GetMapping(value = "/tags/{id}/input")
-    public String editInput(@PathVariable Long id, Model model) {
+        public String editInput(@PathVariable Long id, Model model) {
         Tag tag = tagService.getTag(id);
         System.out.println("----------------editInput-------" + tag.toString());
         model.addAttribute("tag", tag);

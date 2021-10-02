@@ -12,6 +12,9 @@ public class Blog {
     @GeneratedValue
     private Long id;
     private String title;
+
+    @Basic(fetch = FetchType.LAZY)
+    @Lob    //@Lob注解声明大字段类型 第一次初始化时才有效，一般和@Basic懒加载一起使用，只有需要获取的时候才去查询；也可以直接去数据库内将该字段改为longtext类型
     private String content;
     private String firstPicture;
     private String flag;
@@ -21,6 +24,7 @@ public class Blog {
     private boolean commentabled;
     private boolean published;
     private boolean recommend;
+    private String test;
     @Transient
     private String tagIds;
     @Temporal(TemporalType.TIMESTAMP)
